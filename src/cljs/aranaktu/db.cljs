@@ -1,0 +1,4 @@
+(ns aranaktu.db)
+
+(def default-db
+  {:name "re-frame"})
