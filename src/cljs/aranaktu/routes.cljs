@@ -19,10 +19,13 @@
   ;; --------------------
   ;; define routes here
   (defroute "/" []
-    (re-frame/dispatch [:set-active-panel :home-panel]))
+    (re-frame/dispatch [:set-active-panel [:home-panel]]))
 
-  (defroute "/about" []
-    (re-frame/dispatch [:set-active-panel :about-panel]))
+  (defroute "/initialize" []
+    (re-frame/dispatch [:set-active-panel [:initialize-panel]]))
+
+  (defroute "/speech/:params" [params]
+    (re-frame/dispatch [:set-active-panel [:speech-panel params]]))
 
 
   ;; --------------------

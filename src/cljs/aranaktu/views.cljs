@@ -1,34 +1,46 @@
 (ns aranaktu.views
-    (:require [re-frame.core :as re-frame]))
+    (:require [re-frame.core :as re-frame]
+              [aranaktu.api :as api]))
 
+(defn home [] [:div "Home"])
 
-;; home
+(defn login-box [] [:form 
+  [:fieldset 
+    [:label "E-mail"]
+    [:input {:type "email"}]]
+  [:fieldset 
+    [:label "Password"]
+    [:input {:type "password"}]]
+  [:button "Entrar"]
+  [:label {:for "no-user"} [:input {:type "checkbox" :id "no-user"}] "não tenho usuário"]])
 
-(defn home-panel []
-  (let [name (re-frame/subscribe [:name])]
-    (fn []
-      [:div (str "Hello from " @name ". This is the Home Page.")
-       [:div [:a {:href "#/about"} "go to About Page"]]])))
+(defn agenda [] [:div "agenda"])
 
+(defn speech [] [:div "speech"])
 
-;; about
+;; panels
 
-(defn about-panel []
-  (fn []
-    [:div "This is the About Page."
-     [:div [:a {:href "#/"} "go to Home Page"]]]))
+(defn home-panel [] [:div "home" 
+                      [:a {:href "#speech/blah"} "speech"] 
+                      (login-box)])
 
+(defn speech-panel [params] [:div params])
+
+(defn initialize-panel [] 
+  (api/initialize)
+  [:h1 "inicializando"])
 
 ;; main
 
-(defmulti panels identity)
-(defmethod panels :home-panel [] [home-panel])
-(defmethod panels :about-panel [] [about-panel])
-(defmethod panels :default [] [:div])
+(defmulti panels first)
+(defmethod panels :home-panel [_] [home-panel])
+(defmethod panels :speech-panel [[key & params]] [speech-panel params])
+(defmethod panels :initialize-panel [] [initialize-panel])
+(defmethod panels :default [_] [:div])
 
 (defn show-panel
-  [panel-name]
-  [panels panel-name])
+  [[panel-name & props]]
+  [panels [panel-name props]])
 
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [:active-panel])]

@@ -9,6 +9,7 @@
                  [yogthos/config "0.8"]
                  [devcards "0.2.1"]
                  [binaryage/devtools "0.7.2"]
+                 [matchbox "0.0.9"]
                  [ring "1.4.0"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]
