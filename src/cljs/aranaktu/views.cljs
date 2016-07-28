@@ -4,25 +4,38 @@
 
 (defn home [] [:div "Home"])
 
+(defn login-checkbox-change [field] (fn [event]
+                                   (re-frame/dispatch [:set-login-form-value
+                                                        [field (-> event .-target .-checked)]])))
+
 (defn login-field-change [field] (fn [event]
                                    (re-frame/dispatch [:set-login-form-value
                                                         [field (-> event .-target .-value)]])))
 
+(defn handle-login [data] (fn [event] (.preventDefault event)(re-frame/dispatch [:login data])))
+
+(defn handle-signin [data] (fn [event] (.preventDefault event)(re-frame/dispatch [:signin data])))
+
 (defn login-box []
-  (let [form-login (re-frame/subscribe [:form-login])]
-    [:form
-      [:div (:username @form-login)]
+  (let [
+         form-login (re-frame/subscribe [:form-login])
+         signin (:signin @form-login)
+        ]
+    (fn [] [:form {:on-submit (if signin (handle-signin @form-login) (handle-login @form-login))}
       [:fieldset
         [:label "E-mail"]
         [:input {:type "email" :on-change (login-field-change :username)}]]
       [:fieldset
         [:label "Password"]
         [:input {:type "password" :on-change (login-field-change :password)}]]
-      [:button "Entrar"]
       [:label {:for "no-user"}
        [:input {:type "checkbox"
                 :id "no-user"
-                :on-change (login-field-change :signin)}] "não tenho usuário"]]))
+                :on-change (login-checkbox-change :signin)}] "não tenho usuário"]
+      (when signin [:fieldset
+        [:label "Confirm Password"]
+        [:input {:type "password" :on-change (login-field-change :confirm-password)}]])
+      [:button "Entrar"]])))
 
 (defn agenda [] [:div "agenda"])
 
@@ -32,7 +45,7 @@
 
 (defn home-panel [] [:div "home"
                       [:a {:href "#speech/blah"} "speech"]
-                      (login-box)])
+                      [login-box]])
 
 (defn speech-panel [params] [:div params])
 

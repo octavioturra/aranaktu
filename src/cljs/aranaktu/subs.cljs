@@ -14,5 +14,6 @@
 
 (re-frame/register-sub
   :form-login
-  (fn [db]
+  (fn [db [sid]]
+    (assert (= sid :form-login))
     (reaction (:form-login @db))))

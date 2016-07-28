@@ -6,9 +6,9 @@
 
 (devtools/install!)
 
-(defcard my-first-card
-  [:h1 "Devcards is freaking awesome!"])
+;; (defcard my-first-card
+;;   [:h1 "Devcards is freaking awesome!"])
 
 
-(reagent/render [views/main-panel]
-                (.getElementById js/document "cards"))
+;; (reagent/render [my-first-card]
+;;                 (.getElementById js/document "cards"))
