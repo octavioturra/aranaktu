@@ -1,9 +1,9 @@
 (ns aranaktu.api
     (:require [aranaktu.locals :as locals]))
 
-(def root ...)
+(def root nil)
 
-(defn create-user [username password] ...)
-(defn login [username password] ...)
+(defn create-user [username password] nil)
+(defn login [username password] nil)
 
-(defn initialize [] ...)
+(defn initialize [] nil)

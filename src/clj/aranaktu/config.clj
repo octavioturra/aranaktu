@@ -5,9 +5,9 @@
                   :port 5432 ; default
                   :database "lulcbcpp"
                   :username "lulcbcpp"
-                  :password locals/db-password
+                  :password locals/database-password
                   :pool-size 25})
 
-(def database-url "postgres://lulcbcpp:"
-  locals/db-password
-  "@elmer.db.elephantsql.com:5432/lulcbcpp")
+(def database-url (str "postgres://lulcbcpp:"
+  locals/database-password
+  "@elmer.db.elephantsql.com:5432/lulcbcpp"))

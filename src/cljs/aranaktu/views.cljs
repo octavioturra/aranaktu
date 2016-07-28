@@ -1,6 +1,5 @@
 (ns aranaktu.views
-    (:require [re-frame.core :as re-frame]
-              [aranaktu.api :as api]))
+    (:require [re-frame.core :as re-frame]))
 
 (defn home [] [:div "Home"])
 

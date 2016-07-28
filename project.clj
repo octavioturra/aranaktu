@@ -3,7 +3,6 @@
                  [org.clojure/clojurescript "1.8.51"]
                  [org.clojure/core.async "0.2.385"]
                  [reagent "0.5.1"]
-                 [binaryage/devtools "0.6.1"]
                  [re-frame "0.7.0"]
                  [secretary "1.2.3"]
                  [compojure "1.5.0"]
@@ -16,8 +15,11 @@
 
   :plugins [[lein-cljsbuild "1.1.3"]
             [lein-sassy "1.0.7"]
+            [lein-ring "0.9.7"]
             [lein-asset-minifier "0.2.7"
              :exclusions [org.clojure/clojure]]]
+
+  :ring {:handler aranaktu.handler/handler}
 
   :min-lein-version "2.5.3"
 
